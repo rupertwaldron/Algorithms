@@ -1,6 +1,4 @@
-package com.ruppyrup.knapsack;
-
-import java.util.Arrays;
+package com.ruppyrup.dymanic.knapsack;
 
 
 public class Thief {

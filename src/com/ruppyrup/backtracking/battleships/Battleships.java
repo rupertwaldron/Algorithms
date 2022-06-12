@@ -1,6 +1,6 @@
-package com.ruppyrup.backtracking.islands;
+package com.ruppyrup.backtracking.battleships;
 
-public class Islands {
+public class Battleships {
 
     private char[][] grid;
 
@@ -11,7 +11,7 @@ public class Islands {
     private int ROW;
     private int COL;
 
-    public int numIslands(char[][] board) {
+    public int countBattleships(char[][] board) {
         this.grid = board;
         ROW = grid.length;
         COL = grid[0].length;
@@ -19,10 +19,9 @@ public class Islands {
         for (int rowIndex = 0; rowIndex < ROW; rowIndex++) {
             for (int colIndex = 0; colIndex < COL; colIndex++) {
 
-                if ('1' == grid[rowIndex][colIndex]) {
-
+                if ('X' == grid[rowIndex][colIndex]) {
                     DFS(rowIndex, colIndex);
-                    ++count;
+                    count++;
                 }
             }
         }
@@ -32,7 +31,6 @@ public class Islands {
 
     private void DFS(int row, int col) {
         grid[row][col] = '*';
-
         // Recur for all connected neighbours
         for (int k = 0; k < 4; ++k)
             if (isSafe(row + rowNbr[k], col + colNbr[k]))
@@ -45,7 +43,7 @@ public class Islands {
         // and value is 1 and not yet visited
         return (row >= 0) && (row < ROW)
                 && (col >= 0) && (col < COL)
-                && (grid[row][col] == '1');
+                && (grid[row][col] == 'X');
     }
 
 
@@ -62,18 +60,13 @@ public class Islands {
 
     public static void main(String[] args) {
         char[][] map = new char[][]{
-                {'1', '1', '1', '1', '0'},
-                {'1', '1', '0', '1', '0'},
-                {'1', '1', '0', '0', '0'},
-                {'0', '0', '0', '0', '0'}
+                {'X', '.', '.', '.', 'X'},
+                {'.', '.', '.', '.', 'X'},
+                {'X', 'X', 'X', '.', 'X'},
+                {'.', '.', '.', '.', '.'}
         };
 
-        char[][] map2 = new char[][]{
-                {'0', '0', '0', '0', '0'},
-                {'0', '1', '0', '0', '1'},
-                {'0', '0', '1', '0', '1'},
-                {'0', '0', '1', '1', '0'}
-        };
+        char[][] map2 = new char[][]{{'.'}};
 
         char[][] map3 = new char[][]{
                 {'1', '1', '0', '0', '0'},
@@ -84,9 +77,9 @@ public class Islands {
         };
 
 
-        Islands islands = new Islands();
-        System.out.println("Number of islands = " + islands.numIslands(map3));
-        islands.printGrid(map3);
+        Battleships battleships = new Battleships();
+        System.out.println("Number of battleships = " + battleships.countBattleships(map));
+        battleships.printGrid(map);
 
     }
 
