@@ -37,11 +37,15 @@ public class Maze {
         for (int k = 0; k < 4; ++k) {
             if (isSafe(row + rowNbr[k], col + colNbr[k])) {
                 grid[row][col] = '*';
-                return DFS(row + rowNbr[k], col + colNbr[k]);
+                if (DFS(row + rowNbr[k], col + colNbr[k])) {
+                    return true;
+                } else {
+                    //backtrack
+                    grid[row][col] = '1';
+                }
             }
 
-            //backtrack
-            grid[row][col] = '1';
+
         }
 
         return false;
@@ -72,8 +76,8 @@ public class Maze {
         char[][] maze = new char[][]{
                 {'1', '1', '1', '1', '0'},
                 {'0', '1', '0', '1', '0'},
-                {'0', '1', '0', '1', '0'},
-                {'0', '0', '0', '1', '1'}
+                {'0', '1', '0', '0', '0'},
+                {'0', '1', '1', '1', '1'}
         };
 
 
