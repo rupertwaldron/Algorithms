@@ -1,8 +1,12 @@
 package com.ruppyrup.dymanic.lcs;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Lcs {
 
     public int lcs(String s1, String s2) {
+
         // 2D array to memoize sub-results
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
 
