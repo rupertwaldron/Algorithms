@@ -14,15 +14,14 @@ public class ProductPairs {
 
         int l = 0;
         int r = nums.length - 1;
-        while (l != r) {
+        while (l < r) {
             int product = nums[l] * nums[r];
 
-            if ((product - match) < nearest) {
+            if (Math.abs(product - match) < Math.abs(nearest)) {
                 nearest = product - match;
+                result[0] = nums[l];
+                result[1] = nums[r];
             }
-
-            result[0] = nums[l];
-            result[1] = nums[r];
 
             if (product > match) {
                 r--;
@@ -72,8 +71,8 @@ class ProductPairTest {
     @Test
     void checkThreeNumbersNearest2() {
         int[] input = new int[]{3, 5, 7, 9, 10, 30, 39, 50};
-        int[] expected = new int[]{9, 10};
-        Assertions.assertArrayEquals(expected, ProductPairs.solve(input, 78));
+        int[] expected = new int[]{5, 39};
+        Assertions.assertArrayEquals(expected, ProductPairs.solve(input, 190));
     }
 
 }

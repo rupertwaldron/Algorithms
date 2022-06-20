@@ -3,7 +3,7 @@ package com.ruppyrup.backtracking.maze;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class FastestMaze {
+public class FastestMaze2 {
 
     private char[][] grid;
 
@@ -13,6 +13,7 @@ public class FastestMaze {
     int count;
     private int ROW;
     private int COL;
+    int steps = 0;
 
     private GridReference finish;
     private GridReference start;
@@ -24,62 +25,39 @@ public class FastestMaze {
         finish = new GridReference(finishrow, finishcol);
         start = new GridReference(startrow, startcol);
         GridReference start = new GridReference(startrow, startcol);
-        BFS(start);
-        return DFS(finishrow, finishcol);
 
-    }
-
-
-    private boolean BFS(GridReference gridReference) {
-
-
-        Deque<GridReference> queue = new LinkedList<>();
-        queue.push(gridReference);
-        while (!queue.isEmpty()) {
-            GridReference currentGrid = queue.removeFirst();
-
-            int row = currentGrid.rowIndex;
-            int col = currentGrid.colIndex;
-            System.out.println("Row : " + row + " Col : " + col);
-
-            if (currentGrid.equals(finish)) {
-                System.out.println("Finished");
-                grid[row][col] = '*';
-                return true;
-            }
-
-            grid[row][col] = '*';
-
-
-            for (int k = 0; k < 4; ++k) {
-                if (isSafe(row + rowNbr[k], col + colNbr[k], '1')) {
-                    System.out.println(row + " : " + col);
-                    queue.addLast(new GridReference(row + rowNbr[k], col + colNbr[k]));
-                }
-            }
+        char symbol = 'a';
+        while (DFS(startrow, startcol, symbol)) {
+            printGrid(board);
+            System.out.println("Count = " + steps);
+            System.out.println("Trying again");
+            grid[startrow][startcol] = '1';
+            grid[finishrow][finishcol] = '1';
+            steps = 0;
+            symbol = 'b';
         }
-        return false;
+        return true;
     }
 
-
-    private boolean DFS(int row, int col) {
-        if (row == start.rowIndex && col == start.colIndex) {
+    private boolean DFS(int row, int col, char symbol) {
+        if (row == finish.rowIndex && col == finish.colIndex) {
             grid[row][col] = 'X';
             return true;
         }
 
-
-
         // Recur for all connected neighbours
         for (int k = 0; k < 4; ++k) {
-            if (isSafe(row + rowNbr[k], col + colNbr[k], '*')) {
-                grid[row][col] = 'X';
-                if (DFS(row + rowNbr[k], col + colNbr[k])) {
+            if (isSafe(row + rowNbr[k], col + colNbr[k], '1')) {
+                grid[row][col] = symbol;
+                steps++;
+
+                if (DFS(row + rowNbr[k], col + colNbr[k], symbol)) {
                     return true;
-                } else {
-                    //backtrack
-                    grid[row][col] = '*';
                 }
+                    //backtrack
+                grid[row][col] = '1';
+                steps--;
+
             }
 
 
@@ -150,7 +128,7 @@ public class FastestMaze {
         };
 
 
-        FastestMaze mazeSolvers = new FastestMaze();
+        FastestMaze2 mazeSolvers = new FastestMaze2();
         System.out.println("Number of islands = " + mazeSolvers.solveMaze(maze, 0, 0, 7, 5));
         mazeSolvers.printGrid(maze);
 

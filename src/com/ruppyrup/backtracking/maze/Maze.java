@@ -31,25 +31,18 @@ public class Maze {
             return true;
         }
 
-
-
         // Recur for all connected neighbours
         for (int k = 0; k < 4; ++k) {
             if (isSafe(row + rowNbr[k], col + colNbr[k])) {
                 grid[row][col] = '*';
                 if (DFS(row + rowNbr[k], col + colNbr[k])) {
                     return true;
-                } else {
-                    //backtrack
-                    grid[row][col] = '1';
                 }
+                //backtrack
+                grid[row][col] = '1';
             }
-
-
         }
-
         return false;
-
     }
 
     boolean isSafe(int row, int col) {
