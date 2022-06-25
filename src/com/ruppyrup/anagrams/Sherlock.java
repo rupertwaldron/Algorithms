@@ -10,7 +10,7 @@ public class Sherlock {
 
     static void checkMagazine(String[] magazine, String[] note) {
 
-        Map<String, Integer> mag = new HashMap();
+        Map<String, Integer> mag = new HashMap<>();
         for (String str : magazine) {
             if (mag.containsKey(str)) mag.put(str, mag.get(str) + 1);
             else mag.put(str, 1);
