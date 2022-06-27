@@ -34,6 +34,11 @@ public class BinaryTreeChecker {
         }
     }
 
+    // input
+    // 4, 7, 2, 8, 1, 6, 5, 3
+
+
+    // 1, 2, 3, 4, 5, 6, 7, 8 - get an ordered list
     private static void inOrderTraversal(Node root, List<Integer> list) {
         if (root == null) return;
         inOrderTraversal(root.left, list);
@@ -41,6 +46,7 @@ public class BinaryTreeChecker {
         inOrderTraversal(root.right, list);
     }
 
+    // 4, 2, 1, 3, 7, 6, 5, 8  - inspect nodes first - copy the tree
     private static void preOrderTraversal(Node root, List<Integer> list) {
         if (root == null) return;
         list.add(root.value);
@@ -48,6 +54,7 @@ public class BinaryTreeChecker {
         preOrderTraversal(root.right, list);
     }
 
+    // 1, 3, 2, 4, 5, 6, 8, 7, 4 // inspect the leaves first - e.g. delete the tree from leaf to root
     private static void postOrderTraversal(Node root, List<Integer> list) {
         if (root == null) return;
         postOrderTraversal(root.left, list);
@@ -55,6 +62,7 @@ public class BinaryTreeChecker {
         list.add(root.value);
     }
 
+    // 4, 2, 7, 1, 3, 6, 8, 5 // inspect the shortest path
     private static void breadthFirst(Node root, List<Integer> list) {
         if (root == null) return;
         Deque<Node> queue = new LinkedList<>();
@@ -66,7 +74,6 @@ public class BinaryTreeChecker {
             if (currentNode.right != null) queue.add(currentNode.right);
         }
     }
-
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
